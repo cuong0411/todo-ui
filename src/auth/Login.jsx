@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { loginApiCall } from "../services/AuthService.jsx";
+import { loginApiCall, storeToken } from "../services/AuthService.jsx";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigator = new useNavigate();
 
   const login = async (user) => {
     try {
@@ -14,9 +16,14 @@ const Login = () => {
       const status = response.status;
       if (status === 200) {
         toast.success(data);
+        const token =
+          "Basic " + window.btoa(user.usernameOrEmail + ":" + user.password);
+        storeToken(token);
+        navigator("/");
       }
     } catch (e) {
-      toast.error("Login failed");
+      toast.error(e.response.data);
+      console.log(e.message);
     }
   };
   const handleSubmit = (e) => {

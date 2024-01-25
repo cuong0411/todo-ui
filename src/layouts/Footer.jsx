@@ -1,7 +1,7 @@
-import './Footer.css';
+import "./Footer.css";
 const Footer = () => {
   return (
-    <footer className="footer d-flex align-items-center">
+    <footer className="footer d-flex align-items-center mt-3">
       Cuong. {new Date().getFullYear()}
     </footer>
   );
