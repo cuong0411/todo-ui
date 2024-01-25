@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { loginApiCall, storeToken } from "../services/AuthService.jsx";
+import {
+  loginApiCall,
+  saveLoggedInUser,
+  storeToken,
+} from "../services/AuthService.jsx";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +23,9 @@ const Login = () => {
         const token =
           "Basic " + window.btoa(user.usernameOrEmail + ":" + user.password);
         storeToken(token);
+        saveLoggedInUser(user.usernameOrEmail);
         navigator("/");
+        window.location.reload(false);
       }
     } catch (e) {
       toast.error(e.response.data);
