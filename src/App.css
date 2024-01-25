@@ -1,5 +1,6 @@
 .body-container {
-  min-height: calc(100vh - 106px);
+  /*min-height: calc(100vh - 106px);*/
+  min-height: 100vh;
 }
 body {
   background-color: #8ec5fc;
