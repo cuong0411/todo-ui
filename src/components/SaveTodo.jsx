@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { getTodo, createTodo, updateTodo } from "../services/TodoService";
-import { toast } from "react-toastify";
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getTodo, createTodo, updateTodo } from '../services/TodoService';
+import { toast } from 'react-toastify';
 
 const SaveTodo = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [completed, setCompleted] = useState(false);
   const navigator = useNavigate();
   const { id } = useParams();
@@ -13,7 +13,7 @@ const SaveTodo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title) {
-      toast.error("Title is blank");
+      toast.error('Title is blank');
       return;
     }
     const newTodo = { title, description, completed };
@@ -24,11 +24,11 @@ const SaveTodo = () => {
         : await createTodo(newTodo);
       const status = response.status;
       if (status === 201 || status === 200) {
-        toast.success(`todo is ${id ? "updated" : "created"} successfully`);
-        navigator("/");
+        toast.success(`todo is ${id ? 'updated' : 'created'} successfully`);
+        navigator('/todos');
       }
     } catch (error) {
-      toast.error("Can not save the todo item!");
+      toast.error('Can not save the todo item!');
     }
   };
 
@@ -52,7 +52,7 @@ const SaveTodo = () => {
     <div className="container body-container my-3">
       <div className="row">
         <div className="col col-md-8 offset-md-2">
-          <h2 className="text-center">{id ? "Update" : "Add"} Todo</h2>
+          <h2 className="text-center">{id ? 'Update' : 'Add'} Todo</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="title" className="form-label">
@@ -103,7 +103,7 @@ const SaveTodo = () => {
               </button>
               <button
                 className="btn btn-secondary"
-                onClick={() => navigator("/")}
+                onClick={() => navigator('/todos')}
               >
                 <i className="bi bi-box-arrow-left"></i> Back
               </button>
