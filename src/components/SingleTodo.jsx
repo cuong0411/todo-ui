@@ -9,8 +9,6 @@ const SingleTodo = ({ todo, removeTodo }) => {
   const navigator = useNavigate();
 
   const updateStatus = async (id, status) => {
-    console.log(id);
-    console.log(status);
     try {
       if (status) {
         const response = await inCompleteTodo(id);

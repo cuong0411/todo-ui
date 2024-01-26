@@ -19,9 +19,9 @@ const Login = () => {
       const data = await response.data;
       const status = response.status;
       if (status === 200) {
-        toast.success(data);
-        const token =
-          "Basic " + window.btoa(user.usernameOrEmail + ":" + user.password);
+        toast.success("Welcome back, " + user.usernameOrEmail + "!");
+        // const token = "Basic " + window.btoa(user.usernameOrEmail + ":" + user.password);
+        const token = "Bearer " + data.accessToken;
         storeToken(token);
         saveLoggedInUser(user.usernameOrEmail);
         navigator("/");
