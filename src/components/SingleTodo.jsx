@@ -4,7 +4,7 @@ import { completeTodo, inCompleteTodo } from "../services/TodoService.js";
 import { toast } from "react-toastify";
 
 // eslint-disable-next-line react/prop-types
-const SingleTodo = ({ todo, removeTodo }) => {
+const SingleTodo = ({ todo, removeTodo, isAdmin }) => {
   const [todoItem, setTodoItem] = useState(todo);
   const navigator = useNavigate();
 
@@ -41,24 +41,26 @@ const SingleTodo = ({ todo, removeTodo }) => {
           </button>
         </div>
       </td>
-      <td>
-        <div className="d-grid gap-2">
-          <button
-            className="btn btn-info"
-            onClick={() => navigator(`/update-todo/${todoItem.id}`)}
-          >
-            <i className="bi bi-pencil-square"></i>{" "}
-            <span className="d-none d-md-inline">Update</span>
-          </button>
-          <button
-            className="btn btn-danger"
-            onClick={() => removeTodo(todoItem.id)}
-          >
-            <i className="bi bi-trash"></i>{" "}
-            <span className="d-none d-md-inline">Delete</span>
-          </button>
-        </div>
-      </td>
+      {isAdmin && (
+        <td>
+          <div className="d-grid gap-2">
+            <button
+              className="btn btn-info"
+              onClick={() => navigator(`/update-todo/${todoItem.id}`)}
+            >
+              <i className="bi bi-pencil-square"></i>{" "}
+              <span className="d-none d-md-inline">Update</span>
+            </button>
+            <button
+              className="btn btn-danger"
+              onClick={() => removeTodo(todoItem.id)}
+            >
+              <i className="bi bi-trash"></i>{" "}
+              <span className="d-none d-md-inline">Delete</span>
+            </button>
+          </div>
+        </td>
+      )}
     </tr>
   );
 };

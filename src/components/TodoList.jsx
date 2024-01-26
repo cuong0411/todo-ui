@@ -3,12 +3,14 @@ import { deleteTodo, getAllTodos } from "../services/TodoService";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import SingleTodo from "./SingleTodo.jsx";
+import { isAdminUser } from "../services/AuthService.jsx";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const navigator = useNavigate();
+  const isAdmin = isAdminUser();
 
   useEffect(() => {
     getTodoList();
@@ -55,12 +57,14 @@ const TodoList = () => {
   return (
     <div className="container body-container">
       <h2 className="text-center">List of Todos</h2>
-      <button
-        className="btn btn-primary mb-3"
-        onClick={() => navigator("/add-todo")}
-      >
-        <i className="bi bi-plus-circle"></i> Add todo
-      </button>
+      {isAdmin && (
+        <button
+          className="btn btn-primary mb-3"
+          onClick={() => navigator("/add-todo")}
+        >
+          <i className="bi bi-plus-circle"></i> Add todo
+        </button>
+      )}
       <div>
         <table className="table table-light table-striped">
           <thead>
@@ -68,13 +72,18 @@ const TodoList = () => {
               <th>Title</th>
               <th>Description</th>
               <th>Completed</th>
-              <th>Actions</th>
+              {isAdmin && <th>Actions</th>}
             </tr>
           </thead>
           <tbody>
             {todos.map((todo) => {
               return (
-                <SingleTodo key={todo.id} todo={todo} removeTodo={removeTodo} />
+                <SingleTodo
+                  key={todo.id}
+                  todo={todo}
+                  removeTodo={removeTodo}
+                  isAdmin={isAdmin}
+                />
               );
             })}
           </tbody>

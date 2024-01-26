@@ -22,8 +22,9 @@ const Login = () => {
         toast.success("Welcome back, " + user.usernameOrEmail + "!");
         // const token = "Basic " + window.btoa(user.usernameOrEmail + ":" + user.password);
         const token = "Bearer " + data.accessToken;
+        const role = data.role;
         storeToken(token);
-        saveLoggedInUser(user.usernameOrEmail);
+        saveLoggedInUser(user.usernameOrEmail, role);
         navigator("/");
         window.location.reload(false);
       }
