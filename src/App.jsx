@@ -1,13 +1,14 @@
-import SaveTodo from "./components/SaveTodo";
-import TodoList from "./components/TodoList";
-import Footer from "./layouts/Footer";
-import Header from "./layouts/Header";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import "./App.css";
-import { ToastContainer } from "react-toastify";
-import Register from "./auth/Register.jsx";
-import Login from "./auth/Login.jsx";
-import { isUserLoggedIn } from "./services/AuthService.jsx";
+import SaveTodo from './components/SaveTodo';
+import TodoList from './components/TodoList';
+import Footer from './layouts/Footer';
+import Header from './layouts/Header';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import './App.css';
+import { ToastContainer } from 'react-toastify';
+import Register from './auth/Register.jsx';
+import Login from './auth/Login.jsx';
+import { isUserLoggedIn } from './services/AuthService.jsx';
+import { HomePage } from './layouts/HomePage.jsx';
 
 function App() {
   // eslint-disable-next-line react/prop-types
@@ -20,8 +21,9 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
+          <Route path="/" element={<HomePage />}></Route>
           <Route
-            path="/"
+            path="/todos"
             element={
               <AuthenticatedRoute>
                 <TodoList />

@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import { useState } from 'react';
 import {
   loginApiCall,
   saveLoggedInUser,
   storeToken,
-} from "../services/AuthService.jsx";
-import { toast } from "react-toastify";
-import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+} from '../services/AuthService.jsx';
+import { toast } from 'react-toastify';
+import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [usernameOrEmail, setUsernameOrEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [usernameOrEmail, setUsernameOrEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigator = new useNavigate();
 
   const login = async (user) => {
@@ -19,13 +19,13 @@ const Login = () => {
       const data = await response.data;
       const status = response.status;
       if (status === 200) {
-        toast.success("Welcome back, " + user.usernameOrEmail + "!");
+        toast.success('Welcome back, ' + user.usernameOrEmail + '!');
         // const token = "Basic " + window.btoa(user.usernameOrEmail + ":" + user.password);
-        const token = "Bearer " + data.accessToken;
+        const token = 'Bearer ' + data.accessToken;
         const role = data.role;
         storeToken(token);
         saveLoggedInUser(user.usernameOrEmail, role);
-        navigator("/");
+        navigator('/todos');
         window.location.reload(false);
       }
     } catch (e) {
@@ -75,8 +75,8 @@ const Login = () => {
             <div className="mb-3">
               <button className="btn btn-outline-primary">Log in</button>
               <p>
-                Not a member yet! Register an account{" "}
-                <NavLink to="/register">here</NavLink>{" "}
+                Not a member yet! Register an account{' '}
+                <NavLink to="/register">here</NavLink>
               </p>
             </div>
           </form>

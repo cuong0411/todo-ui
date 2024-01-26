@@ -1,17 +1,17 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 import {
   getLoggedInUser,
   isUserLoggedIn,
   logout,
-} from "../services/AuthService.jsx";
-import { useNavigate } from "react-router-dom";
+} from '../services/AuthService.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const isAuth = isUserLoggedIn();
   const navigator = useNavigate();
   const handleLogout = () => {
     logout();
-    navigator("/login");
+    navigator('/login');
   };
   return (
     <header>
@@ -40,32 +40,37 @@ const Header = () => {
               </li>
               {!isAuth && (
                 <>
-                  {" "}
                   <li className="nav-item">
                     <NavLink to="/register" className="nav-link">
-                      Register
+                      <i className="bi bi-person-add"></i> Register
                     </NavLink>
                   </li>
                   <li className="nav-item">
                     <NavLink to="/login" className="nav-link">
-                      Log in
+                      <i className="bi bi-person"></i> Log in
                     </NavLink>
-                  </li>{" "}
+                  </li>
                 </>
               )}
               {isAuth && (
                 <>
+                  <li className="nav-item">
+                    <NavLink to="/todos" className="nav-link">
+                      <i className="bi bi-list-check"></i> To-do List
+                    </NavLink>
+                  </li>
                   <li className="nav-item">
                     <NavLink
                       to="/login"
                       className="nav-link"
                       onClick={handleLogout}
                     >
-                      Log out
+                      <i className="bi bi-arrow-right-square"></i> Log out
                     </NavLink>
                   </li>
-                  <li className="nav-item text-warning d-flex justify-content-center align-items-center">
-                    Hi {getLoggedInUser()}
+                  <li className="nav-item text-warning d-flex justify-content-md-center align-items-center">
+                    <i className="bi bi-person-circle"></i> Hi,{' '}
+                    {getLoggedInUser()}
                   </li>
                 </>
               )}

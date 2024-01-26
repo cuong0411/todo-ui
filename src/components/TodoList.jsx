@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { deleteTodo, getAllTodos } from "../services/TodoService";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import SingleTodo from "./SingleTodo.jsx";
-import { isAdminUser } from "../services/AuthService.jsx";
+import { useEffect, useState } from 'react';
+import { deleteTodo, getAllTodos } from '../services/TodoService';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import SingleTodo from './SingleTodo.jsx';
+import { isAdminUser } from '../services/AuthService.jsx';
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const navigator = useNavigate();
   const isAdmin = isAdminUser();
 
@@ -32,7 +32,7 @@ const TodoList = () => {
   const removeTodo = async (id) => {
     try {
       await deleteTodo(id);
-      toast.success("Removed successfully");
+      toast.success('Removed successfully');
       await getTodoList();
     } catch (error) {
       toast.error(error.message);
@@ -56,17 +56,17 @@ const TodoList = () => {
 
   return (
     <div className="container body-container">
-      <h2 className="text-center">List of Todos</h2>
+      <h2 className="text-center my-3">List of Todos</h2>
       {isAdmin && (
         <button
           className="btn btn-primary mb-3"
-          onClick={() => navigator("/add-todo")}
+          onClick={() => navigator('/add-todo')}
         >
           <i className="bi bi-plus-circle"></i> Add todo
         </button>
       )}
       <div>
-        <table className="table table-light table-striped">
+        <table className="table table-bordered table_custom">
           <thead>
             <tr className="text-center">
               <th>Title</th>

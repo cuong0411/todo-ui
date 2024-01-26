@@ -1,15 +1,17 @@
-import React, { useState } from "react";
-import { registerApiCall } from "../services/AuthService.jsx";
-import { toast } from "react-toastify";
+import { useState } from 'react';
+import { registerApiCall } from '../services/AuthService.jsx';
+import { toast } from 'react-toastify';
+import { useNavigate, NavLink } from 'react-router-dom';
 
 const Register = () => {
   const [error, setError] = useState(null);
   const [user, setUser] = useState({
-    name: "",
-    username: "",
-    email: "",
-    password: "",
+    name: '',
+    username: '',
+    email: '',
+    password: '',
   });
+  const navigator = useNavigate();
   const handleInputChange = (e) => {
     const nameInput = e.target.name;
     const valueInput = e.target.value;
@@ -23,6 +25,7 @@ const Register = () => {
       const data = await response.data;
       if (status === 201) {
         toast.success(data);
+        navigator('/login');
       } else {
         toast.error(data);
       }
@@ -37,18 +40,12 @@ const Register = () => {
       !user.name.trim() ||
       !user.email.trim() ||
       !user.username.trim() ||
-      user.password.trim()
+      !user.password.trim()
     ) {
-      setError("Please fill out all the fields");
+      setError('Please fill out all the fields');
       return;
     }
     register(user);
-    setUser({
-      name: "",
-      username: "",
-      email: "",
-      password: "",
-    });
   };
   return (
     <div className="container body-container">
@@ -119,6 +116,9 @@ const Register = () => {
               <button className="btn btn-outline-primary" type="submit">
                 Register
               </button>
+              <p>
+                Already a member? Login <NavLink to="/login">here</NavLink>
+              </p>
             </div>
           </form>
         </div>
