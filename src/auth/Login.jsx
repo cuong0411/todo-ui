@@ -25,7 +25,7 @@ const Login = () => {
         const role = data.role;
         storeToken(token);
         saveLoggedInUser(user.usernameOrEmail, role);
-        navigator('/todos');
+        navigator('/');
         window.location.reload(false);
       }
     } catch (e) {
