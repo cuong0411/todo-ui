@@ -1,6 +1,9 @@
 import { NavLink } from 'react-router-dom';
+import { getLoggedInUser, isUserLoggedIn } from '../services/AuthService';
 
 export const HomePage = () => {
+  const isAuth = isUserLoggedIn();
+
   return (
     <div className="container body-container">
       <div className="px-4 py-5 my-5 text-center">
@@ -53,14 +56,27 @@ export const HomePage = () => {
               </tr>
             </tbody>
           </table>
-          <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <NavLink to="/login" className="btn btn-primary btn-lg px-4 gap-3">
-              Login
-            </NavLink>
-            <NavLink to="/register" className="btn btn-secondary btn-lg px-4">
-              Register
-            </NavLink>
-          </div>
+          {!isAuth && (
+            <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
+              <NavLink
+                to="/login"
+                className="btn btn-primary btn-lg px-4 gap-3"
+              >
+                Login
+              </NavLink>
+              <NavLink to="/register" className="btn btn-secondary btn-lg px-4">
+                Register
+              </NavLink>
+            </div>
+          )}
+          {isAuth && (
+            <p className="alert alert-primary">
+              Hi {getLoggedInUser()}. Check your to-do list{' '}
+              <NavLink to="/todos" className="text-success">
+                Here
+              </NavLink>
+            </p>
+          )}
         </div>
       </div>
     </div>
